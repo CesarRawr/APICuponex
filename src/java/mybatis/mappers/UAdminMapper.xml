@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uAdmin">
+    
+    <select id="getAllAdmins" resultType = "pojos.UAdmin" >
+        SELECT * FROM uadmin
+    </select>
+    
+    <insert id="registrar" parameterType="pojos.UAdmin">
+        INSERT INTO uadmin (nombre, apellidoP, apellidoM, correo, password)
+        VALUES (#{nombre}, #{apellidoP}, #{apellidoM}, #{correo}, #{password})
+    </insert>
+    
+    <update id="modificar" parameterType="pojos.UAdmin">
+        UPDATE uadmin SET nombre = #{nombre}, apellidoP = #{apellidoP}, apellidoM = #{apellidoM}, correo = #{correo},
+        password = #{password}
+        WHERE idUAdmin = #{idUAdmin}
+    </update>
+    
+    <delete id="eliminar" parameterType="pojos.UAdmin">
+        DELETE FROM uadmin
+        WHERE idUAdmin = #{idUAdmin}
+    </delete>
+</mapper>

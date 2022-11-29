@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usuariom">
+    
+    <select id="getAllUser" resultType = "pojos.UsuarioM" >
+        SELECT idUserM, nombre, apellidoP, apellidoM, telefono, correo, direccion, DATE_FORMAT(fechaNac, "%d/%m/%Y") as fechaNac, password
+        FROM usuariom 
+    </select>
+    
+    <insert id="registrar" parameterType="pojos.UsuarioM">
+        INSERT INTO usuariom (nombre, apellidoP, apellidoM, telefono, correo, direccion, fechaNac, password)
+        VALUES (#{nombre}, #{apellidoP}, #{apellidoM}, #{telefono}, #{correo}, #{direccion}, #{fechaNac}, #{password})
+    </insert>
+    
+    <update id="modificar" parameterType="pojos.UsuarioM">
+        UPDATE usuariom SET nombre = #{nombre}, apellidoP = #{apellidoP}, apellidoM = #{apellidoM}, telefono = #{telefono}, 
+        correo = #{correo}, direccion = #{direccion}, fechaNac = #{fechaNac}, password = #{password}
+        WHERE idUserM = #{idUserM}
+    </update>
+</mapper>

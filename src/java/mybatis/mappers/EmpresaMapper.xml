@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="empresa">
+    
+    <select id="getAllEmpresas" resultType = "pojos.Empresa" >
+        SELECT idEmpresa, empresa.nombre, nombreCom, representante, correo, direccion, codigo_P
+        ciudad, telefono, paginaW, rfc, idEstatusE, catalogo.nombre as 'categoriaE' 
+        FROM empresa 
+        INNER JOIN catalogo 
+        ON empresa.idCategoriaE = catalogo.idCatalogo
+    </select>
+    
+    <select id="getByNombre" resultType="pojos.Empresa" parameterType="String">
+        SELECT * FROM empresa
+        WHERE nombre = #{nombre}
+    </select>
+    
+    <select id="getByRFC" resultType="pojos.Empresa" parameterType="String">
+        SELECT * FROM empresa
+        WHERE rfc = #{rfc}
+    </select>
+    
+    <select id="getByRep" resultType="pojos.Empresa" parameterType="String">
+        SELECT * FROM empresa
+        WHERE representante = #{representante}
+    </select>
+    
+    <insert id="registrar" parameterType="pojos.Empresa">
+        INSERT INTO empresa (nombre, nombreCom, representante, correo, direccion, codigo_P, ciudad, telefono, paginaW, rfc, idEstatusE, idCategoriaE)
+        VALUES (#{nombre}, #{nombreCom}, #{representante}, #{correo}, #{direccion}, #{codigo_P}, #{ciudad}, #{telefono}, #{paginaW}, #{rfc}, 301, #{idCategoriaE})
+    </insert>
+    
+    <update id="modificar" parameterType="pojos.Empresa">
+        UPDATE empresa SET nombre = #{nombre}, nombreCom = #{nombreCom}, representante = #{representante}, correo = #{correo},
+        direccion = #{direccion}, codigo_P = #{codigo_P}, ciudad = #{ciudad}, telefono = #{telefono}, paginaW = #{paginaW}
+        WHERE idEmpresa = #{idEmpresa}
+    </update>
+    
+    <update id="cambiarEstatus" parameterType="int">
+        UPDATE empresa SET idEstatusE = 302
+        WHERE idEmpresa = #{idEmpresa}
+    </update>
+    
+    <delete id="eliminar" parameterType="pojos.Empresa">
+        DELETE FROM empresa
+        WHERE idEmpresa = #{idEmpresa}
+    </delete>
+    
+</mapper>

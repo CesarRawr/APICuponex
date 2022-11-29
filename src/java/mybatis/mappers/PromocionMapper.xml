@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="promociones">
+    
+    <select id="getAllPromociones" resultType="pojos.Promocion" >
+        SELECT * FROM promocion
+    </select>
+    
+    <select id="getByFechaIn" resultType="pojos.Promocion" >
+        SELECT * FROM promocion
+        WHERE fecha_In = #{fecha_In}
+    </select>
+    
+    <select id="getByFechaFn" resultType="pojos.Promocion" >
+        SELECT * FROM promocion
+        WHERE fecha_Fn = #{fecha_Fn}
+    </select>
+    
+    <insert id="registrar" parameterType="pojos.Promocion">
+        INSERT INTO promocion (nPromocion, descripcion, fecha_In, fecha_Fn, restricciones, porcentDesc, costoProm, tipoProm, idCategoriaE, idEstatusP, idSucursal)
+        VALUES (#{nPromocion}, #{descripcion}, #{fecha_In}, #{fecha_Fn}, #{restricciones}, #{porcentDesc}, #{costoProm}, #{tipoProm}, #{idCategoriaE}, 201, #{idSucursal})
+    </insert>
+    
+    <update id="modificar" parameterType="pojos.Promocion">
+        UPDATE promocion SET nPromocion = #{npromocion}, descripcion = #{descripcion}, restricciones = #{restricciones}, porcentDesc = #{porcentDesc},
+        costoProm = #{costoProm}, tipoProm = #{tipoProm}, 
+        WHERE idMedico = #{idMedico}
+    </update>
+</mapper>
