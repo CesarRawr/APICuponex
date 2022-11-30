@@ -19,15 +19,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE fecha_Fn = #{fecha_Fn}
     </select>
     
+    <select id="getByNombre" resultType="pojos.Promocion" >
+        SELECT * FROM promocion
+        WHERE nPromocion = #{nPromocion}
+    </select>
+    
     <insert id="registrar" parameterType="pojos.Promocion">
         INSERT INTO promocion (nPromocion, descripcion, fecha_In, fecha_Fn, restricciones, porcentDesc, costoProm, tipoProm, idCategoriaE, idEstatusP, idSucursal)
         VALUES (#{nPromocion}, #{descripcion}, #{fecha_In}, #{fecha_Fn}, #{restricciones}, #{porcentDesc}, #{costoProm}, #{tipoProm}, #{idCategoriaE}, 201, #{idSucursal})
     </insert>
     
     <update id="modificar" parameterType="pojos.Promocion">
-        UPDATE promocion SET nPromocion = #{npromocion}, descripcion = #{descripcion}, restricciones = #{restricciones}, porcentDesc = #{porcentDesc},
-        costoProm = #{costoProm}, tipoProm = #{tipoProm}, 
-        WHERE idMedico = #{idMedico}
+        UPDATE promocion SET nPromocion = #{nPromocion}, descripcion = #{descripcion}, restricciones = #{restricciones}, porcentDesc = #{porcentDesc},
+        costoProm = #{costoProm}, tipoProm = #{tipoProm}
+        WHERE idPromocion = #{idPromocion}
     </update>
    
     <delete id="eliminar" parameterType="pojos.Promocion">

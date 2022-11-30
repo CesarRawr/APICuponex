@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.UriInfo;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -41,6 +42,63 @@ public class PromocionWS {
             }
         }
         return promocion;
+    }
+    
+    @Path("byName/{nombre}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Promocion buscarByNombre(@PathParam("nombre") String nombre){
+        Promocion result = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                result = conn.selectOne("promocion.getByNombre",nombre);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return result;
+    }
+    
+    @Path("byFechaIn/{fecha}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Promocion buscarByFechaIn(@PathParam("fecha") String fecha){
+        Promocion result = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                result = conn.selectOne("promocion.getByFechaIn", fecha);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return result;
+    }
+    
+    @Path("byFechaFn/{fecha}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Promocion buscarByFechaFn(@PathParam("fecha") String fecha){
+        Promocion result = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                result = conn.selectOne("promocion.getByFechaFn", fecha);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return result;
     }
     
     @Path("registrar")
@@ -89,14 +147,15 @@ public class PromocionWS {
     @Path("modificar")
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta modificar(@FormParam("nPromocion") String nPromocion,
+    public Respuesta modificar(@FormParam("idPromocion") int idPromocion,
+                            @FormParam("nPromocion") String nPromocion,
                             @FormParam("descripcion") String descripcion,
                             @FormParam("restricciones") String restricciones,
                             @FormParam("porcentDesc") int porcentDesc,
                             @FormParam("costoProm") int costoProm,
                             @FormParam("tipoProm") String tipoProm){
         
-        Promocion promocionRegistro = new Promocion(nPromocion, descripcion,restricciones, porcentDesc, costoProm, tipoProm);
+        Promocion promocionRegistro = new Promocion(idPromocion, nPromocion, descripcion,restricciones, porcentDesc, costoProm, tipoProm);
         
         Respuesta respuestaWS = new Respuesta();
         SqlSession conexionBD = MyBatisUtil.getSession();

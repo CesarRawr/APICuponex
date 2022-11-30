@@ -32,8 +32,14 @@ public class Promocion {
         this.idSucursal = idSucursal;
     }
 
-    public Promocion(String nPromocion, String descripcion, String restricciones, int porcentDesc, int costoProm, String tipoProm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Promocion(Integer idPromocion, String nPromocion, String descripcion, String restricciones, Integer porcentDesc, Integer costoProm, String tipoProm) {
+        this.idPromocion = idPromocion;
+        this.nPromocion = nPromocion;
+        this.descripcion = descripcion;
+        this.restricciones = restricciones;
+        this.porcentDesc = porcentDesc;
+        this.costoProm = costoProm;
+        this.tipoProm = tipoProm;
     }
 
     public Integer getIdPromocion() {
