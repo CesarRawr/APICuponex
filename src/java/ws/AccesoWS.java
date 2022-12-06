@@ -33,6 +33,9 @@ public class AccesoWS {
         SqlSession conn = MyBatisUtil.getSession();
         RespuestaLogin respuesta = new RespuestaLogin();
         
+        System.out.println("nombre");
+        System.out.println(nombre);
+        
         if(conn != null){
             try{
                 result = conn.selectList("uAdmin.getAllAdmins");

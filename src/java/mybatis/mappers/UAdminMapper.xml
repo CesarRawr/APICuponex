@@ -9,13 +9,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM uadmin
     </select>
     
+    <select id="getByID" resultType = "pojos.UAdmin" parameterType="int">
+        SELECT * FROM uadmin WHERE idUAdmin=#{idUAdmin}
+    </select>
+    
     <insert id="registrar" parameterType="pojos.UAdmin">
         INSERT INTO uadmin (nombre, apellidoP, apellidoM, correo, password)
         VALUES (#{nombre}, #{apellidoP}, #{apellidoM}, #{correo}, #{password})
     </insert>
     
     <update id="modificar" parameterType="pojos.UAdmin">
-        UPDATE uadmin SET nombre = #{nombre}, apellidoP = #{apellidoP}, apellidoM = #{apellidoM}, correo = #{correo},
+        UPDATE uadmin SET nombre = #{nombre}, apellidoP = #{apellidoP}, apellidoM = #{apellidoM},
         password = #{password}
         WHERE idUAdmin = #{idUAdmin}
     </update>

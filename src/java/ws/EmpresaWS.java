@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import pojos.Catalogo;
 import pojos.Empresa;
 import pojos.Respuesta;
 import pojos.Sucursal;
@@ -27,6 +28,24 @@ public class EmpresaWS {
     private UriInfo context;
     
     public EmpresaWS(){    
+    }
+    
+    @Path("categorias")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Catalogo> buscarCategorias(){
+        List<Catalogo> result = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try{
+                result = conn.selectList("empresa.getAllCategorias");
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally{
+                conn.close();
+            }
+        }
+        return result;
     }
     
     @Path("all")

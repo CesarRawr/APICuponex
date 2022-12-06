@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -92,7 +93,6 @@ public class UAdminWS {
                             @FormParam("nombre")String nombre,
                             @FormParam("apellidoP") String apellidoP,
                             @FormParam("apellidoM") String apellidoM,
-                            @FormParam("correo") String correo,
                             @FormParam("password") String password){
         
        UAdmin administradorEdicion = new UAdmin();
@@ -100,7 +100,6 @@ public class UAdminWS {
         administradorEdicion.setNombre(nombre);
         administradorEdicion.setApellidoP(apellidoP);
         administradorEdicion.setApellidoM(apellidoM);
-        administradorEdicion.setCorreo(correo);
         administradorEdicion.setPassword(password);
         
         Respuesta respuestaWS = new Respuesta();
@@ -158,5 +157,23 @@ public class UAdminWS {
             respuestaWS.setMensaje("CONEXION CON EL SISTEMA PERDIDO");
         }
         return respuestaWS;
+    }
+    
+    @Path("byID/{idUAdmin}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public UAdmin buscarByNombre(@PathParam("idUAdmin") int idUAdmin){
+        UAdmin empresaResultado = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                empresaResultado = conn.selectOne("uAdmin.getByID", idUAdmin);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        return empresaResultado;
     }
 }
