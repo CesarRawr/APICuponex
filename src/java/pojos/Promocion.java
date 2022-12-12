@@ -1,9 +1,11 @@
 package pojos;
 
+import java.util.ArrayList;
+
 public class Promocion {
     
     private Integer idPromocion;
-    private String nPromocion;
+    private String nombre;
     private String descripcion;
     private String fecha_In;
     private String fecha_Fn;
@@ -11,15 +13,20 @@ public class Promocion {
     private Integer porcentDesc;
     private Integer costoProm;
     private String tipoProm;
+    private String categoria;
     private Integer idCategoriaE;
-    private Integer idEstatusP;
-    private Integer idSucursal;
+    private String estatus;
+    private Boolean is_active;
+    private String imagen;
+    private ArrayList<Integer> sucursales;
 
     public Promocion() {
     }
+    
+    
 
-    public Promocion(String nPromocion, String descripcion, String fecha_In, String fecha_Fn, String restricciones, Integer porcentDesc, Integer costoProm, String tipoProm, Integer idCategoriaE, Integer idEstatusP, Integer idSucursal) {
-        this.nPromocion = nPromocion;
+    public Promocion(String nPromocion, String descripcion, String fecha_In, String fecha_Fn, String restricciones, Integer porcentDesc, Integer costoProm, String tipoProm, Integer idCategoriaE, Boolean is_active, Integer idSucursal) {
+        this.nombre = nPromocion;
         this.descripcion = descripcion;
         this.fecha_In = fecha_In;
         this.fecha_Fn = fecha_Fn;
@@ -28,13 +35,13 @@ public class Promocion {
         this.costoProm = costoProm;
         this.tipoProm = tipoProm;
         this.idCategoriaE = idCategoriaE;
-        this.idEstatusP = idEstatusP;
-        this.idSucursal = idSucursal;
+        this.setIs_active(is_active);
+        
     }
 
     public Promocion(Integer idPromocion, String nPromocion, String descripcion, String restricciones, Integer porcentDesc, Integer costoProm, String tipoProm) {
         this.idPromocion = idPromocion;
-        this.nPromocion = nPromocion;
+        this.nombre = nPromocion;
         this.descripcion = descripcion;
         this.restricciones = restricciones;
         this.porcentDesc = porcentDesc;
@@ -42,6 +49,14 @@ public class Promocion {
         this.tipoProm = tipoProm;
     }
 
+    public Integer getIDPromocion() {
+        return idPromocion;
+    }
+
+    public void setIDPromocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
+    }
+    
     public Integer getIdPromocion() {
         return idPromocion;
     }
@@ -50,12 +65,12 @@ public class Promocion {
         this.idPromocion = idPromocion;
     }
 
-    public String getnPromocion() {
-        return nPromocion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setnPromocion(String nPromocion) {
-        this.nPromocion = nPromocion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -122,19 +137,50 @@ public class Promocion {
         this.idCategoriaE = idCategoriaE;
     }
 
-    public Integer getIdEstatusP() {
-        return idEstatusP;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setIdEstatusP(Integer idEstatusP) {
-        this.idEstatusP = idEstatusP;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public Integer getIdSucursal() {
-        return idSucursal;
+    public String getEstatus() {
+        return estatus;
     }
 
-    public void setIdSucursal(Integer idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(Boolean is_active) {
+        this.is_active = is_active;
+        
+        if (is_active) {
+            this.setEstatus("activo");
+            return;
+        }
+        
+        this.setEstatus("inactivo");
+    }
+
+    public ArrayList<Integer> getSucursales() {
+        return sucursales;
+    }
+
+    public void setSucursales(ArrayList<Integer> sucursales) {
+        this.sucursales = sucursales;
     }
 }

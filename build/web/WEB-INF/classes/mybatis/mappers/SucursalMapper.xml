@@ -4,14 +4,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sucursal">
+    <select id="getByNombre" resultType="pojos.Sucursal" parameterType="String">
+        SELECT * FROM sucursal
+        WHERE nombre = #{nombre}
+    </select>
+    
+    <select id="getByDireccion" resultType="pojos.Sucursal" parameterType="String">
+        SELECT * FROM sucursal
+        WHERE direccion = #{direccion}
+    </select>
     
     <select id="getAllByEmpresa" resultType="pojos.Sucursal" parameterType="int">
-        SELECT * FROM sucursal
-        WHERE idEmpresa = #{idEmpresa}
+        SELECT sucursal.*, empresa.nombre AS 'empresa' 
+        FROM sucursal
+        INNER JOIN empresa 
+        ON sucursal.idEmpresa = empresa.idEmpresa
+        WHERE sucursal.idEmpresa = #{idEmpresa}
+    </select>
+    
+    <select id="getAllByPromocion" resultType="pojos.Sucursal" parameterType="int">
+        SELECT sucursal.* 
+        FROM promocion_sucursal
+        INNER JOIN sucursal
+        ON promocion_sucursal.idSucursal = sucursal.idSucursal
+        WHERE promocion_sucursal.idPromocion = #{idPromocion}
     </select>
     
     <select id="getAllSucursal" resultType="pojos.Sucursal" >
-        SELECT * FROM sucursal
+        SELECT sucursal.*, empresa.nombre AS 'empresa' 
+        FROM sucursal
+        INNER JOIN empresa 
+        ON sucursal.idEmpresa = empresa.idEmpresa
     </select>
     
     <insert id="registrar" parameterType="pojos.Sucursal">

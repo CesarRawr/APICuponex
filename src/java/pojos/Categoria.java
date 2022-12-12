@@ -10,15 +10,15 @@ package pojos;
  * @author Cesar
  */
 public class Categoria {
-    private int idCataogo;
+    private int idCatalogo;
     private String nombre;
 
-    public int getIdCataogo() {
-        return idCataogo;
+    public int getIdCatalogo() {
+        return idCatalogo;
     }
 
-    public void setIdCataogo(int idCataogo) {
-        this.idCataogo = idCataogo;
+    public void setIdCatalogo(int idCataogo) {
+        this.idCatalogo = idCataogo;
     }
 
     public String getNombre() {

@@ -13,6 +13,7 @@ public class Empresa {
     private String telefono;
     private String paginaW;
     private String rfc;
+    private String categoriaE;
     private Integer idEstatusE;
     private Integer idCategoriaE;
 
@@ -138,5 +139,12 @@ public class Empresa {
     public void setIdCategoriaE(Integer idCategoriaE) {
         this.idCategoriaE = idCategoriaE;
     }
-    
+
+    public String getCategoriaE() {
+        return categoriaE;
+    }
+
+    public void setCategoriaE(String categoriaE) {
+        this.categoriaE = categoriaE;
+    }
 }

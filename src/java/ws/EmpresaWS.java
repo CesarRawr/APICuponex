@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import pojos.Catalogo;
+import pojos.Categoria;
 import pojos.Empresa;
 import pojos.Respuesta;
 import pojos.Sucursal;
@@ -33,12 +34,30 @@ public class EmpresaWS {
     @Path("categorias")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Catalogo> buscarCategorias(){
-        List<Catalogo> result = null;
+    public List<Categoria> buscarCategorias(){
+        List<Categoria> result = null;
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
             try{
                 result = conn.selectList("empresa.getAllCategorias");
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally{
+                conn.close();
+            }
+        }
+        return result;
+    }
+    
+    @Path("status")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Categoria> buscarStatus(){
+        List<Categoria> result = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try{
+                result = conn.selectList("empresa.getAllStatus");
             }catch (Exception e){
                 e.printStackTrace();
             }finally{
@@ -70,6 +89,8 @@ public class EmpresaWS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Empresa buscarByNombre(@PathParam("nombre") String nombre){
+        nombre = nombre.replace("-", " ");
+        
         Empresa empresaResultado = null;
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
@@ -106,6 +127,7 @@ public class EmpresaWS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Empresa buscarByRepresentante(@PathParam("representante") String representante){
+        representante = representante.replace("-", " ");
         Empresa empresaResultado = null;
         SqlSession conn = MyBatisUtil.getSession();
         if(conn != null){
@@ -133,7 +155,8 @@ public class EmpresaWS {
                             @FormParam("telefono") String telefono,
                             @FormParam("paginaW") String paginaW,
                             @FormParam("rfc") String rfc,
-                            @FormParam("idCategoriaE") Integer idCategoriaE){
+                            @FormParam("idCategoriaE") Integer idCategoriaE,
+                            @FormParam("idEstatusE") Integer idEstatusE){
         
         Empresa empresaRegistro = new Empresa();
         empresaRegistro.setNombre(nombre);
@@ -147,6 +170,7 @@ public class EmpresaWS {
         empresaRegistro.setPaginaW(paginaW);
         empresaRegistro.setRfc(rfc);
         empresaRegistro.setIdCategoriaE(idCategoriaE);
+        empresaRegistro.setIdEstatusE(idCategoriaE);
         
         Respuesta respuestaWS = new Respuesta();
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -188,7 +212,7 @@ public class EmpresaWS {
                             @FormParam("ciudad") String ciudad,
                             @FormParam("telefono") String telefono,
                             @FormParam("paginaW") String paginaW,
-                            @FormParam("categoriaE") Integer idCategoriaE){
+                            @FormParam("idCategoriaE") Integer idCategoriaE){
         
         Empresa empresaEdicion = new Empresa();
         empresaEdicion.setIdEmpresa(idEmpresa);

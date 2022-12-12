@@ -4,6 +4,7 @@ public class Respuesta {
     
     private Boolean error;
     private String mensaje;
+    private int id;
 
     public Respuesta() {
     }
@@ -27,5 +28,13 @@ public class Respuesta {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

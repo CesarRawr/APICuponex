@@ -12,6 +12,7 @@ public class Sucursal {
     private float latitud;
     private float longitud;
     private String encargado;
+    private String empresa;
 
     public Sucursal() {
     }
@@ -117,6 +118,12 @@ public class Sucursal {
     public void setEncargado(String encargado) {
         this.encargado = encargado;
     }
-    
-    
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }    
 }

@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -168,7 +169,7 @@ public class SucursalWS {
                 }
             } catch (Exception e){
                 respuestaWS.setError(true);
-                respuestaWS.setMensaje(e.getMessage());
+                respuestaWS.setMensaje("No se puede eliminar una sucursal con promociones asignadas");
             } finally{
                 conexionBD.close();
             }
@@ -177,5 +178,85 @@ public class SucursalWS {
             respuestaWS.setMensaje("CONEXION CON EL SISTEMA PERDIDO");
         }
         return respuestaWS;
+    }
+    
+    @Path("byName/{nombre}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Sucursal buscarByNombre(@PathParam("nombre") String nombre){
+        nombre = nombre.replace("-", " ");
+        
+        Sucursal res = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                res= conn.selectOne("sucursal.getByNombre",nombre);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return res;
+    }
+    
+    @Path("byDireccion/{direccion}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Sucursal buscarByDireccion(@PathParam("direccion") String direccion){
+        direccion = direccion.replace("-", " ");
+        
+        Sucursal res = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                res = conn.selectOne("sucursal.getByDireccion", direccion);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return res;
+    }
+    
+    @Path("allByEmpresa/{idEmpresa}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Sucursal> buscarAllByEmpresa(@PathParam("idEmpresa") int idEmpresa){
+        List<Sucursal> res = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                res = conn.selectList("sucursal.getAllByEmpresa", idEmpresa);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return res;
+    }
+    
+    @Path("allByPromocion/{idPromocion}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Sucursal> buscarAllByPromocion(@PathParam("idPromocion") int idPromocion){
+        List<Sucursal> res = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        if(conn != null){
+            try {
+                res = conn.selectList("sucursal.getAllByPromocion", idPromocion);
+            }catch (Exception e){
+                e.printStackTrace();
+            } finally{
+                conn.close();
+            }
+        }
+        
+        return res;
     }
 }
